@@ -55,6 +55,7 @@ html, body {
   border-top: none;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
+  position: relative;
 }
 
 .list-container i {
@@ -67,4 +68,13 @@ html, body {
   border-right: none;
   padding: 20px;
   cursor: pointer;
+}
+
+.delete-button {
+  position: absolute;
+  right: 5px;
+  border: gray 1px solid;
+  background-color: black;
+  padding: 6px;
+  border-radius: 10%;
 }
