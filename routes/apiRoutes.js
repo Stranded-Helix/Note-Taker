@@ -1,34 +1,12 @@
 const fs = require('fs');
 const json = require('../db/db.json')
 
-
-const htmlTemplate = `<li class="list-group-item">
-Some Title
-<a  href="/">
-<i class="fa fa-trash delete-button"></i>
-</a>
-</li>`
-
-const createListItemFromNote = (note) => {
-    return (`<li class="list-group-item">
-    ${note.title}
-    <a  href="/">
-    <i class="fa fa-trash delete-button"></i>
-    </a>
-    </li>`)
-}
-
-// console.table(notes);
-// const notelist = [];
-// notes.forEach((item) => {
-//     notelist.push(createListItemFromNote(item));
-// })
+const filename = './db/db.json'
 
 module.exports = (app) => {
 
     app.get('/api/notes', (req, res) => {
-        console.log("get route called");
-        fs.readFile('./db/db.json', (err, data) => {
+        fs.readFile(filename, (err, data) => {
             if(err) {
                 console.error(err);
             }
@@ -38,12 +16,39 @@ module.exports = (app) => {
             } catch(exception) {
                 console.error(exception);
             }
-
         })
-
     });
 
     app.post('/api/notes', (req, res) => {
+        fs.readFile(filename, (err, data) => {
+            if(err) {
+                console.error(err);
+            }
+            try {
+                let notes = JSON.parse(data);
+                notes.push(req.body);
+                fs.writeFile(filename, JSON.stringify(notes), () => console.log("db.json updated"));
+                res.json("Notes updated");
+            } catch(exception) {
+                console.error(exception);
+            }
+        })
+    })
 
+    app.delete('/api/notes/:id', (req, res) => {
+        fs.readFile(filename, (err, data) => {
+            if(err) {
+                console.error(err);
+            }
+            try {
+                let notes = JSON.parse(data);
+                notes.splice(req.params.id, 1);
+                fs.writeFile(filename, JSON.stringify(notes), () => console.log("db.json updated"));
+                res.json(notes);     
+                
+            } catch(exception) {
+                console.error(exception);
+            }
+        })
     })
 }

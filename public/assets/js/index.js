@@ -79,7 +79,7 @@ const handleNoteSave = () => {
 const handleNoteDelete = (e) => {
   // prevents the click listener for the list from being called when the button inside of it is clicked
   e.stopPropagation();
-
+  console.log("delete pressed")
   const note = e.target;
   const noteId = JSON.parse(note.parentElement.getAttribute('data-note')).id;
 
@@ -153,6 +153,14 @@ const renderNoteList = async (notes) => {
 
   if (jsonNotes.length === 0) {
     noteListItems.push(createLi('No saved Notes', false));
+  }
+
+  for(let i = 0; i<jsonNotes.length; i++){
+    const li = createLi(jsonNotes[i].tile);
+    note = jsonNotes[i];
+    note.id = i;
+    console.log(note);
+    li.dataset = (JSON.stringify(note));
   }
 
   jsonNotes.forEach((note) => {
