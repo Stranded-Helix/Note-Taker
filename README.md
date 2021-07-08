@@ -1,5 +1,6 @@
 # Note Taker
 ## Web based notebook 
+![image](https://user-images.githubusercontent.com/36345799/124971543-f032be80-dfee-11eb-87aa-eeeeb8e21f8e.png)
 
 ## Table of Contents 
 [installation](#installation)
